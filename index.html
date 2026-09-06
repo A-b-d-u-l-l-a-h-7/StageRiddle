@@ -1,206 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage Riddle Challenge</title>
-  <style>
-    :root {
-      --bg-color: #f0f9ff;
-      --card-bg: #ffffff;
-      --primary: #0284c7;
-      --primary-hover: #0369a1;
-      --light-blue: #e0f2fe;
-      --text-dark: #0f172a;
-      --text-muted: #64748b;
-      --border: #bae6fd;
-      --error-bg: #fef2f2;
-      --error-text: #dc2626;
-      --success-bg: #f0fdf4;
-      --success-text: #16a34a;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Weight Riddle</title>
+    <style>
+        :root {
+            --primary-blue: #0077b6;
+            --light-blue: #caf0f8;
+            --background-blue: #e0f7fa;
+            --white: #ffffff;
+            --dark-text: #03045e;
+            --option-hover: #ade8f4;
+        }
 
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: var(--bg-color); color: var(--text-dark); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-    .card { background: var(--card-bg); border-radius: 16px; padding: 32px; width: 100%; max-width: 500px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1); border: 1px solid var(--border); }
-    h1 { margin-top: 0; color: var(--primary); text-align: center; font-size: 28px; }
-    p { color: var(--text-muted); text-align: center; margin-bottom: 24px; }
-    label { display: block; margin: 16px 0 6px; font-weight: 600; color: var(--text-dark); }
-    input, select { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #93c5fd; background: var(--bg-color); color: var(--text-dark); font-size: 16px; outline: none; transition: border-color 0.2s; }
-    input:focus, select:focus { border-color: var(--primary); background: #ffffff; }
-    button { width: 100%; margin-top: 24px; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
-    button:hover { background: var(--primary-hover); }
-    .msg { margin-top: 16px; text-align: center; font-weight: bold; padding: 12px; border-radius: 8px; display: none; }
-    .error { background: var(--error-bg); color: var(--error-text); border: 1px solid #fecaca; }
-    .success { background: var(--success-bg); color: var(--success-text); border: 1px solid #bbf7d0; }
-    
-    /* Host Dashboard Styles */
-    .dashboard { display: none; max-width: 750px; }
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tab-btn { flex: 1; padding: 12px; background: var(--light-blue); color: var(--primary); border: 1px solid var(--border); border-radius: 8px; font-weight: bold; cursor: pointer; }
-    .tab-btn.active { background: var(--primary); color: #ffffff; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
-    th { color: var(--primary); background: var(--light-blue); }
-    .rank { font-weight: bold; color: #d97706; }
-    .clear-btn { background: #ef4444; margin-top: 20px; font-size: 14px; padding: 10px; }
-    .clear-btn:hover { background: #dc2626; }
-  </style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-blue);
+            color: var(--dark-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 119, 182, 0.15);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid var(--light-blue);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: var(--primary-blue);
+            margin-top: 0;
+        }
+
+        .riddle-box {
+            background-color: var(--light-blue);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .timer {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px;
+            border: 2px solid var(--light-blue);
+            border-radius: 6px;
+            font-size: 1em;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option-btn {
+            padding: 12px;
+            background-color: var(--light-blue);
+            color: var(--dark-text);
+            border: 2px solid var(--primary-blue);
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background-color: var(--option-hover);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn {
+            padding: 12px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .admin-btn:hover {
+            background-color: #005f92;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .leaderboard {
+            margin-top: 30px;
+            border-top: 2px solid var(--light-blue);
+            padding-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-blue);
+        }
+
+        th {
+            background-color: var(--light-blue);
+            color: var(--dark-text);
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- PARTICIPANT FORM VIEW -->
-  <div class="card" id="playerView">
-    <h1>Stage Riddle Challenge</h1>
-    <p>Select the riddle, enter your details, and submit!</p>
-    <form id="riddleForm">
-      <label>Which Riddle are you answering?</label>
-      <select id="questionSelect" required>
-        <option value="q1">Riddle #1</option>
-        <option value="q2">Riddle #2</option>
-        <option value="q3">Riddle #3</option>
-      </select>
-
-      <label>Your Name</label>
-      <input type="text" id="userName" placeholder="e.g. Sarah Jenkins" required>
-      
-      <label>Phone / Seat #</label>
-      <input type="text" id="userInfo" placeholder="e.g. Seat B12 or 555-0192" required>
-      
-      <label>Riddle Answer</label>
-      <input type="text" id="userAnswer" placeholder="Type answer here..." required>
-      
-      <button type="submit" id="subBtn">Submit Answer</button>
-      <div id="statusMsg" class="msg"></div>
-    </form>
-  </div>
-
-  <!-- HOST DASHBOARD VIEW (Access via URL hash #host) -->
-  <div class="card dashboard" id="hostView">
-    <h1>Live Leaderboards</h1>
-    <p>Select a riddle tab to view real-time rankings:</p>
+<div class="container">
+    <h1>The Internet Riddle</h1>
     
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('q1')">Riddle 1</button>
-      <button class="tab-btn" onclick="switchTab('q2')">Riddle 2</button>
-      <button class="tab-btn" onclick="switchTab('q3')">Riddle 3</button>
+    <div class="riddle-box">
+        In 1999, the University of Chicago measured the total weight of the internet. How much did it weigh?
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Seat/Contact</th>
-          <th>Time Submitted</th>
-        </tr>
-      </thead>
-      <tbody id="leaderboard">
-        <tr><td colspan="4" style="text-align:center; color: var(--text-muted);">No submissions yet!</td></tr>
-      </tbody>
-    </table>
+    <div class="timer" id="timer">0.0s</div>
 
-    <button class="clear-btn" onclick="clearResults()">Reset Leaderboards</button>
-  </div>
+    <div id="game-form" class="input-group">
+        <input type="text" id="player-name" placeholder="Enter your name first" required>
+        
+        <div class="options-grid">
+            <button class="option-btn" onclick="submitAnswer('5g')">5g</button>
+            <button class="option-btn" onclick="submitAnswer('50g')">50g</button>
+            <button class="option-btn" onclick="submitAnswer('500g')">500g</button>
+            <button class="option-btn" onclick="submitAnswer('5kg')">5kg</button>
+        </div>
+    </div>
+
+    <div id="message"></div>
+
+    <div class="admin-controls">
+        <input type="password" id="admin-key" placeholder="Enter owner key to view leaderboard" style="flex-grow: 1;">
+        <button class="admin-btn" onclick="toggleLeaderboard()">Access</button>
+    </div>
+
+    <div id="leaderboard-section" class="leaderboard hidden">
+        <h2>Leaderboard (Owner View)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                </tbody>
+        </table>
+    </div>
+</div>
 
 <script>
-  // --- CONFIGURATION ---
-  // Change these to your exact correct answers (case-insensitive)
-  const ANSWERS = {
-    q1: "piano",
-    q2: "candle",
-    q3: "echo"
-  };
+    // System Setup
+    const OWNER_KEY = "admin123"; // Change this key to your secret password
+    const CORRECT_ANSWER = "50g"; 
+    
+    let startTime = Date.now();
+    let timerInterval = setInterval(updateTimer, 100);
+    let gameEnded = false;
 
-  let activeTab = 'q1';
-
-  // Router: #host shows the leaderboards, default shows the player form
-  if (window.location.hash === '#host') {
-    document.getElementById('playerView').style.display = 'none';
-    document.getElementById('hostView').style.display = 'block';
-    renderLeaderboard('q1');
-    // Auto refresh leaderboard every second
-    setInterval(() => renderLeaderboard(activeTab), 1000);
-  }
-
-  // Handle Form Submission
-  document.getElementById('riddleForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const msg = document.getElementById('statusMsg');
-    const question = document.getElementById('questionSelect').value;
-    const name = document.getElementById('userName').value.trim();
-    const info = document.getElementById('userInfo').value.trim();
-    const answer = document.getElementById('userAnswer').value.trim().toLowerCase();
-
-    msg.style.display = 'none';
-
-    // Validate Answer
-    if (answer !== ANSWERS[question].toLowerCase()) {
-      msg.className = 'msg error';
-      msg.innerText = 'Wrong Answer! Try again.';
-      msg.style.display = 'block';
-      return;
+    function updateTimer() {
+        if (!gameEnded) {
+            const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+            document.getElementById('timer').innerText = `${elapsed}s`;
+        }
     }
 
-    // Record correct response
-    const timestamp = new Date();
-    const timeStr = timestamp.toLocaleTimeString() + '.' + String(timestamp.getMilliseconds()).padStart(3, '0');
+    function submitAnswer(selectedOption) {
+        if (gameEnded) return;
 
-    const newEntry = { name, info, timeStr, rawTime: timestamp.getTime() };
+        const name = document.getElementById('player-name').value.trim();
+        const messageEl = document.getElementById('message');
 
-    // Save to local storage
-    let submissions = JSON.parse(localStorage.getItem('riddle_' + question) || '[]');
-    submissions.push(newEntry);
-    // Sort by timestamp (fastest first)
-    submissions.sort((a, b) => a.rawTime - b.rawTime);
-    localStorage.setItem('riddle_' + question, JSON.stringify(submissions));
+        if (!name) {
+            messageEl.style.color = "red";
+            messageEl.innerText = "Please enter your name first!";
+            return;
+        }
 
-    msg.className = 'msg success';
-    msg.innerText = 'Correct! Your speed record has been logged.';
-    msg.style.display = 'block';
-    document.getElementById('userAnswer').value = '';
-  });
-
-  // Switch tabs in Host View
-  function switchTab(qKey) {
-    activeTab = qKey;
-    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
-      btn.classList.toggle('active', `q${idx + 1}` === qKey);
-    });
-    renderLeaderboard(qKey);
-  }
-
-  // Render Leaderboard Table
-  function renderLeaderboard(qKey) {
-    const tbody = document.getElementById('leaderboard');
-    const submissions = JSON.parse(localStorage.getItem('riddle_' + qKey) || '[]');
-
-    if (submissions.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">No correct answers logged yet!</td></tr>';
-      return;
+        if (selectedOption === CORRECT_ANSWER) {
+            gameEnded = true;
+            clearInterval(timerInterval);
+            const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+            
+            saveScore(name, parseFloat(finalTime));
+            
+            messageEl.style.color = "green";
+            messageEl.innerText = `Correct! ${selectedOption} is the answer. Completed in ${finalTime}s.`;
+            document.getElementById('game-form').classList.add('hidden');
+        } else {
+            messageEl.style.color = "red";
+            messageEl.innerText = "Incorrect answer. Try again!";
+        }
     }
 
-    tbody.innerHTML = '';
-    submissions.forEach((entry, idx) => {
-      const row = `<tr>
-        <td class="rank">#${idx + 1}</td>
-        <td>${entry.name}</td>
-        <td>${entry.info}</td>
-        <td>${entry.timeStr}</td>
-      </tr>`;
-      tbody.innerHTML += row;
-    });
-  }
-
-  // Clear Leaderboards
-  function clearResults() {
-    if (confirm("Are you sure you want to clear all leaderboard entries?")) {
-      localStorage.removeItem('riddle_q1');
-      localStorage.removeItem('riddle_q2');
-      localStorage.removeItem('riddle_q3');
-      renderLeaderboard(activeTab);
+    function saveScore(name, time) {
+        let leaderboard = JSON.parse(localStorage.getItem('riddleLeaderboard')) || [];
+        leaderboard.push({ name: name, time: time });
+        leaderboard.sort((a, b) => a.time - b.time); // Sort by fastest time
+        localStorage.setItem('riddleLeaderboard', JSON.stringify(leaderboard));
     }
-  }
+
+    function toggleLeaderboard() {
+        const inputKey = document.getElementById('admin-key').value;
+        const leaderboardSection = document.getElementById('leaderboard-section');
+
+        if (inputKey === OWNER_KEY) {
+            renderLeaderboard();
+            leaderboardSection.classList.remove('hidden');
+        } else {
+            alert("Incorrect owner key.");
+            leaderboardSection.classList.add('hidden');
+        }
+    }
+
+    function renderLeaderboard() {
+        const tbody = document.getElementById('leaderboard-body');
+        const leaderboard = JSON.parse(localStorage.getItem('riddleLeaderboard')) || [];
+        
+        tbody.innerHTML = '';
+        
+        if (leaderboard.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="2">No submissions yet.</td></tr>';
+            return;
+        }
+
+        leaderboard.forEach(entry => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${escapeHTML(entry.name)}</td><td>${entry.time}s</td>`;
+            tbody.appendChild(row);
+        });
+    }
+
+    function escapeHTML(str) {
+        return str.replace(/[&<>'"]/g, 
+            tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+        );
+    }
 </script>
+
 </body>
 </html>
